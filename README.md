@@ -18,3 +18,6 @@ The page is comprised by:
 
 **Will regurarly update the README file** - Javier
 
+Changes 
+-----------------
+* ***05/17/2013/*** Erased some extra files that are not needed. 
