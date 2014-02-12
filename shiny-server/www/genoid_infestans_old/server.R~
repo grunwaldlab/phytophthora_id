@@ -1,0 +1,49 @@
+library(shiny)
+library(poppr)
+data(nancycats)
+pop<-popsub(nancycats,8:9)
+
+shinyServer(function(input, output) {
+  
+  treeInput <- reactive({
+    switch(input$tree,
+           "nj" = "nj",
+           "upgma" = "upgma")
+  })
+  
+  
+  
+  
+  output$distPlotTree <- renderPlot({
+    if (input$boot > 1000){
+      return("No Plots Allowed.")
+    }
+    else{
+      a<-bruvo.boot(pop, sample=input$boot, tree=input$tree)
+      plot(a, show.node.label=TRUE)
+      tiplabels(pop$pop)
+      if (input$tree =="upgma")
+        axisPhylo(3)}
+  })
+  
+  output$downloadData <- downloadHandler(
+    filename = function() { paste(input$tree, '.tre', sep='') },
+    content = function(file) {
+      write.tree(a, file)
+    })
+  
+  output$downloadPdf <- downloadHandler(
+    filename = function() { paste(input$tree, '.pdf', sep='') },
+    content = function(file) {
+      pdf(file,width=6,height=4,paper='letter')
+      plot(a, show.node.label=TRUE)
+      if (input$tree =="upgma")
+        axisPhylo(3)
+      dev.off()
+    })
+  
+  output$MinSpanTree <- renderPlot({
+    bruvo.msn(pop, vertex.label=NA, vertex.size=100)
+  })
+  
+})

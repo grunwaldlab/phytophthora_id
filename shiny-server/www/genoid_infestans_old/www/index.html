@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <script src="shared/jquery.js" type="text/javascript"></script>
+  <script src="shared/shiny.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="shared/shiny.css"/>
+  <link rel="stylesheet" type="text/css" href="shared/slider/css/jquery.slider.min.css"/>
+  <script src="shared/slider/js/jquery.slider.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="shared/bootstrap/css/bootstrap.min.css"/>
+  <script src="shared/bootstrap/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" type="text/css" href="shared/bootstrap/css/bootstrap-responsive.min.css"/>
+  <title>Geno-ID Shiny module</title>
+<!--script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+<script>if (typeof(Shiny) != "undefined") {
+  Shiny.createSocket = function() {return new SockJS(location.pathname + "__sockjs__",null,{});};
+  Shiny.oncustommessage = function(message) {
+    if (typeof message === "string") alert(message);
+    if (message.alert) alert(message.alert);
+    if (message.console && console.log) console.log(message.console);
+  };
+}</script-->
+  
+  <title>Phytophthora ID: Genotype ID (SSR identification for strains of P. infestans and P. ramorum)</title>
+</head>
+<body>
+	<!--div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+		<div class="container">
+			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="brand" href="http://pw5810obiwan.usda-ars.orst.edu/index.html">Phytophthora-ID</a>
+			<div class="nav-collapse collapse">
+				<ul class="nav">
+				<li class="http://pw5810obiwan.usda-ars.orst.edu/index.html"><a href="http://pw5810obiwan.usda-ars.orst.edu/index.html">Home</a></li>
+				<li><a href="http://pw5810obiwan.usda-ars.orst.edu/seq-id.html">Sequence ID</a></li>
+				<li><a href="http://pw5810obiwan.usda-ars.orst.edu:3838/phytophthora_id/">Genotype ID</a></li>
+				<li><a href="http://pw5810obiwan.usda-ars.orst.edu/about.html">About</a></li>            </ul>
+			</div>
+		</div>
+		</div>
+	</div-->
+    
+<div class="row-fluid">
+<!--div class="row-fluid">
+	<div class="span12" style="padding: 60px 0px 0px;">
+				
+		<h1><img src="img/third.png" class="img-circle" style="border:8px solid #0088CC ; width:80px " >  Genotype ID</h1>
+		<p>Choose a tree algorithm or select between the different tabs to do a mst or tree analysis:</p>
+	</div>
+</div-->
+<div class="row-fluid">
+		<div class="span12">
+		<h3>Upload SSRs and choose analysis</h3>
+		<p>Using the left panel, upload the allele valuest to the its respective SSR locus, then select between a distance tree with bootstrap support values or a Minimum spanning network.</p>
+		<p>Both of the methods use Bruvo's Distance, as implemented in the R package poppr</p>		
+		<hr>
+		</div>
+		<div class="span2">		
+		<h4>SSR loci</h4>
+		<p>Separate alleles using a slash (Allele1/Allele2/Allele3)</p>
+		<p style="color:blue"><b>Warning:</b> All genotipes must have 3 alleles, if you have diploid data, add an extra "/000" at the end.</p>
+		<div class="control">		    
+		    <form class="well">
+		    <label style="align:center">D13</label>
+		    <input id="mst1" name="mst1" type="text" class="shiny-bound-input" maxlength="11" style="width:80px" placeholder="000/000/000">
+			 <label>G11</label>		    
+		    <input id="mst2" name="mst2" type="text" class="shiny-bound-input" maxlength="11" style="width:80px;" placeholder="000/000/000">
+			 <label>Pi04</label>	
+		    <input id="mst3" name="mst3" type="text" class="shiny-bound-input" maxlength="11" style="width:80px;" placeholder="000/000/000">
+			 <label>Pi4B</label>	
+			 <input id="mst4" name="mst4" type="text" class="shiny-bound-input" maxlength="11" style="width:80px;" placeholder="000/000/000">
+			 <label>Pi63</label>	
+		    <input id="mst5" name="mst5" type="text" class="shiny-bound-input" maxlength="11" style="width:80px;" placeholder="000/000/000">
+			 <label>Pi70</label>			    
+		    <input id="mst6" name="mst6" type="text" class="shiny-bound-input" maxlength="11" style="width:80px;" placeholder="000/000/000">
+			 <label>SSR11</label>			    
+		    <input id="mst7" name="mst7" type="text" class="shiny-bound-input" maxlength="11" style="width:80px;" placeholder="000/000/000">
+			 <label>SSR2</label>			    
+		    <input id="mst8" name="mst8" type="text" class="shiny-bound-input" maxlength="11" style="width:80px;" placeholder="000/000/000">
+			 <label>SSR3</label>			    
+		    <input id="mst9" name="mst9" type="text" class="shiny-bound-input" maxlength="11" style="width:80px;" placeholder="000/000/000">
+		    <label>SSR4</label>			    
+		    <input id="mst10" name="mst10" type="text" class="shiny-bound-input" maxlength="11" style="width:80px;" placeholder="000/000/000">
+			 <label>SSR5</label>			    
+		    <input id="mst11" name="mst11" type="text" class="shiny-bound-input" maxlength="11" style="width:80px;" placeholder="000/000/000">
+		    <label>SSR6</label>			    
+		    <input id="mst12" name="mst12" type="text" class="shiny-bound-input" maxlength="11" style="width:80px;" placeholder="000/000/000">
+		    <br>
+		    <button type="submit" class="btn btn-success">Submit genotype</button>
+    		</form>
+    	</div>
+    	</div>
+    	<div id="plot" class="shiny-plot-output shiny-bound-output" style="width: 100% ; height: 900px">
+		<div class="span9 offset1">
+		<h4>Analysis</h4>
+		<p>Select between a Distance tree with bootstrap support values or a Minimum spanning network</p>
+		<div class="tabbable">
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a href="#tab-8923-1" data-toggle="tab">Distance Tree with Bootstrap</a>
+			</li>
+			<li>
+				<a href="#tab-8923-2" data-toggle="tab">Minimum spanning network</a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" title="Bootstrap Tree" id="tab-8923-1">
+					<h2>Tree Parameters</h2>
+					<form id="form" class="well">
+					<div class="row-fluid">
+					<div class="control-group span3">		
+					<label class="control-label" for="tree">Choose a tree algorithm:</label>
+					<select id="tree" style="width:100px">
+						<option value="nj">nj</option>
+						<option value="upgma" selected="selected">upgma</option>
+					</select>
+					</div>
+						<div class="control-group span6">
+					<label class="control-label">Number of bootstrap replicates</label>     
+							<div class="controls">
+							<input id="boot" name="boot" type="number" value="100" min="10" max="1000" style="width:100px">
+							</div>
+						</div>
+						<br>
+					</div>			
+					<div class="row-fluid">					
+					<div class="control-group span3">
+						<button type="submit" class="btn btn-success" data-loading-text="Calculating...">Create Tree</button>
+					</div>			
+					<div class="span9" >					
+						<a id="downloadData" class="btn btn-primary shiny-download-link" href="" target="_blank">Newick File</a>
+						<a id="downloadPdf"  class="btn btn-info shiny-download-link" href="" target="_blank">PDF</a>
+					</div>
+					</div>
+				    <br>
+					<span class="help-block" style="color:green">Please wait while the tree is generated</span>
+				
+					</form>	    					
+				<!/div>	
+				<div data-display-if="$('html').hasClass('shiny-busy')"> 			
+					<div class="span9 offset1">
+					<br>
+					<h4>Processing, please wait.</h4>   
+					<div class="progress progress-striped active">
+    					<div class="bar" style="width: 100%;"></div>
+    				</div>
+    				</div>
+    			</div>				
+				<div id="distPlotTree" class="span6 shiny-plot-output" style="width: 100% ; height: 800px"></div>
+			</div>
+			<div class="tab-pane" title="Minimum spanning network" id="tab-8923-2">		
+				<div class="span12">
+				<h3>Minimum Spanning network</h3>								
+					<form id="form" class="well">
+					<span class="help-block">Note: Distances are calculated using Bruvo's distance </span>	
+					<button type="submit" class="btn btn-success" data-loading-text="Calculating...">Calculate MST</button>
+					<a id="downloadPdfMst"  class="btn btn-info shiny-download-link" href="" target="_blank">PDF</a>				
+					</form>
+				</div>
+				<div id="MinSpanTree" class="shiny-plot-output" style="width: 100% ; height: 800px"></div>
+			</div>
+		</div>
+		</div>
+	</div-->
+</div>
+</div>
+<!--script src="shared/jquery.js" type="text/javascript"></script>
+<script src="shared/shiny.js" type="text/javascript"></script>
+<script src="shared/slider/js/jquery.slider.min.js"></script>
+<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-button.js"></script>
+<script>if (typeof(Shiny) != "undefined") {
+Shiny.createSocket = function() {return new SockJS(location.pathname + "__sockjs__",null,{});};
+Shiny.oncustommessage = function(message) {
+	if (typeof message === "string") alert(message);
+	if (message.alert) alert(message.alert);
+	if (message.console && console.log) console.log(message.console);
+};
+}</script>
+<script src="http://twitter.github.com/bootstrap/assets/js/jquery.js"></script>
+	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
+	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-alert.js"></script>
+	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
+	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-scrollspy.js"></script>
+	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
+	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
+	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
+	<script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
+	
+<script type="text/javascript">
+$(document).ready(function(){
+// Validation
+$("#form").validate({
+	errorClass: "help-inline", 
+	errorElement: "span", 
+	highlight:function(element, errorClass,validClass) {
+								$(element).parents('.control-group').addClass('error'); 
+								}, 
+	unhighlight:function(element, errorClass, validClass) {
+								$(element).parents('.control-group').removeClass('error'); 
+								} 
+							}); 
+		});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
