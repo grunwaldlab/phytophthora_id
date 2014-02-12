@@ -1,4 +1,4 @@
-Phytophthora-ID
+**Phytophthora**-ID
 ===============
 
 Webpage of Phytophthora ID of the Grunwald lab. It contains both the website pages and the shiny-server files for Genotype-ID.
