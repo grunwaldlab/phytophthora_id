@@ -16,8 +16,7 @@
 </head>
 <body>
 
-    
-<div class="row-fluid">
+
 <div class="row-fluid">
 		<div class="span12">
 		<h3>Upload genotypes and select analysis</h3>
@@ -25,14 +24,20 @@
 		<p>Copy and paste your matrix using <a href="./SSR_Example_Data_infestans.xlsx" target="_blank">this file</a> as template. Remember, <b>do not include the header and separate alleles using a slash (Allele1/Allele2/Allele3)</b></p>
 		<p style="color:blue"><b>Warning:</b> All genotypes must have <b>3</b> alleles, if you have diploid data, add extra "/0" at the end until you completed the ploidy levels.</p>
 		<hr>
-		<div class="control">		    
-		    <form class="well">
-		    <label style="align:center">Input Window</label>
+		<div>
+		<div class="span11">		
+		<div class="well">		    
+		    <form class="text">
+		    <label style="align:center">Text Input</label>
 		    <textarea id="table" name="table" class="shiny-bound-input" cols="25" rows="7" style="width: 100%"></textarea> 
 		    <br>
+		    </form>
+		    <form class="text">
+		    <p><label>Random Seed (Add any numeric value)</label>
+		    <input id="seed" name="seed" class="shiny-bound-input" cols="1" rows="1" value="200" style="width: 5%"></textarea> </p>
 		    <button type="submit" class="btn btn-success">Submit genotype</button>
     		</form>
-    	</div>
+    	</div>    	
     	</div>
     	<div id="plot" class="shiny-plot-output shiny-bound-output" style="width: 100% ; height: 900px">
 		<div class="span10 offset1">
