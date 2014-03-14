@@ -12,6 +12,9 @@ p <- NULL
 a <- NULL
 gen <- NULL
 random.sample <- 1
+
+######## IMPORTANT ##############
+#Change this values to the repeat lenghts of your SSR markers
 ssr <- c(PrMS6 = 3, PRMS9c3 = 2, PrMS39a = 2, PrMS45 = 4, PrMS43ab = 4, KI18 = 2, KI64 = 2, ILVOPrMS131 = 2)
 
 
@@ -192,12 +195,9 @@ shinyServer(function(input, output) {
     return(msn.plot)
   })
   
-  #################################
-  
-  
-  ######## IMPORTANT ##############
-  #Change this values to the repeat lenghts of your SSR markers
-  ssr <- c(PrMS6 = 3, PRMS9c3 = 2, PrMS39a = 2, PrMS45 = 4, PrMS43ab = 4, KI18 = 2, KI64 = 2, ILVOPrMS131 = 2)
+  #################
+  #Plotting trees# 
+  ################
   
   output$distPlotTree <- renderPlot({
     if (is.null(data())){
