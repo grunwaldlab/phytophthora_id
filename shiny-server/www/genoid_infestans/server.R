@@ -4,13 +4,7 @@ library(ape)
 library(igraph)
 df <- read.table("reduced_database.txt.csv", header=TRUE, sep="\t")
 df.m <- as.matrix(df)
-#newrow <- c()
-msn.plot <- NULL
-labs <- NULL
-p <- NULL
-a <- NULL
-gen <- NULL
-random.sample <- 1
+# Repeat lengths for P. infestans
 ssr <- c(3,3,2,3,3,2,2,3,3,3,3,3)
 # Function that will add extra zeroes onto genotypes that are deficient in the right number of alleles.
 addzeroes <- function(x, ploidy = 3){
@@ -167,27 +161,49 @@ shinyServer(function(input, output) {
       #Adding colors to the tip values according to the clonal lineage
       gen$other$tipcolor <- pop(gen)
       gen$other$input_data <- input_data
-      levels(gen$other$tipcolor) <- c("blue", "darkcyan", "darkolivegreen", "darkgoldenrod", heat.colors(length(levels(gen$other$tipcolor)) - 4))
+      levels(gen$other$tipcolor) <- c("blue", "darkcyan", "darkolivegreen", "darkgoldenrod", rainbow(length(levels(gen$other$tipcolor)) - 4))
       gen$other$tipcolor <- as.character(gen$other$tipcolor)
       return(gen)
     }
   })
   
-  boottree <- reactive({
-    #Running the tree, setting a cutoff of 50 and saving it into a variable to be plotted (a)
-    set.seed(input$seed)
-    if (input$tree=="nj"){
-      a <- bruvo.boot(data(), replen = ssr, sample=input$boot, tree=input$tree, cutoff=50)
-      a <- phangorn::midpoint(ladderize(a))
-    }
-    else {
-      a <- bruvo.boot(data(), replen = ssr, sample = input$boot, tree = input$tree, cutoff = 50)
-    }
-    return(a)
+  seed <- reactive({
+    return(input$seed)
   })
   
+  boottree <- reactive({
+    # Running the tree, setting a cutoff of 50 and saving it into a variable to 
+    # be plotted (tree)
+    if (input$boot > 1000){
+      return(1000L)
+    } else if (input$boot < 10){
+      return(10L)
+    }
+    set.seed(seed())
+    tree <- try(bruvo.boot(data(), replen = ssr, sample = input$boot, 
+                           tree = input$tree, cutoff = 50), silent = TRUE)
+    
+    # This is a catch to avoid having missing data within the distance matrix. 
+    if ("try-error" %in% class(tree)){
+      for (i in sample(100)){
+        tree <- try(bruvo.boot(data(), replen = ssr, sample = input$boot, 
+                               tree = input$tree, cutoff = 50), silent = TRUE)
+        if (!"try-error" %in% class(tree)){
+          print(paste0("Success: ", i))
+          break
+        }
+        print(paste0("Failed: ", i))
+      }
+    }
+    
+    if (input$tree=="nj"){
+      tree <- phangorn::midpoint(ladderize(tree))
+    }
+    return(tree)
+  })
+  
+  
   msnet <- reactive ({
-    set.seed(input$seed)
     msn.plot <- bruvo.msn(data(), replen = ssr)
     V(msn.plot$graph)$size <- 3
     return(msn.plot)
@@ -195,35 +211,36 @@ shinyServer(function(input, output) {
   
   output$distPlotTree <- renderPlot({
     if (is.null(data())){
-      plot(c(0, 1), c(0, 1), ann = F, bty = 'n', type = 'n', xaxt = 'n', yaxt = 'n') + rect(0, 1, 1, 0.8, col = "indianred2", border = 'transparent' ) + text(x = 0.5, y = 0.9, "No SSR data has been input.", cex = 1.6, col = "white")
-    }
-    else{
-      if (input$boot > 1000){
-        plot(c(0, 1), c(0, 1), ann = F, bty = 'n', type = 'n', xaxt = 'n', yaxt = 'n') + rect(0, 1, 1, 0.8, col = "indianred2", border = 'transparent' ) + text(x = 0.5, y = 0.9, "The number of bootstrap repetitions should be less or equal to 2000", cex = 1.6, col = "white")
-      }
-      else if (input$boot < 10){
-        plot(c(0, 1), c(0, 1), ann = F, bty = 'n', type = 'n', xaxt = 'n', yaxt = 'n') + rect(0, 1, 1, 0.8, col = "indianred2", border = 'transparent' ) + text(x = 0.5, y = 0.9, "The number of bootstrap repetitions should be greater than 10", cex = 1.6, col = "white")
-      }
-      else{
-        
-        #Drawing the tree
-        plot.phylo(boottree())
-        
-        #Adding the tip labels from each population, and with the already defined colors
-        tiplabels(pop(data()), adj = c(-4, 0.5), frame = "n", col = data()$other$tipcolor, cex = 0.8, font = 2)
-        
-        #Adding the nodel labels: Bootstrap values.
-        nodelabels(boottree()$node.label, adj = c(1.2, -0.5), frame = "n", cex = 0.9, font = 3)
-        
-        if (input$tree == "upgma"){
-          axisPhylo(3)
-        }
-        else if (input$tree == "nj"){
-          add.scale.bar(x = 0.89, y = 1.18, length = 0.05, lwd = 2)
-        }
+      plot.new() 
+      rect(0, 1, 1, 0.8, col = "indianred2", border = 'transparent' ) + 
+        text(x = 0.5, y = 0.9, "No SSR data has been input.", cex = 1.6, col = "white")
+    } else if (is.integer(boottree())){
+      msg <- ifelse(boottree() > 10L, "\nless than or equal to 1000",
+                    "greater than 10")
+      msg <- paste("The number of bootstrap replicates should be", msg)
+      plot.new()
+      rect(0, 1, 1, 0.8, col = "indianred2", border = 'transparent' ) + 
+        text(x = 0.5, y = 0.9, msg, cex = 1.6, col = "white")
+    } else {
+      #Drawing the tree
+      plot.phylo(boottree())
+      
+      #Adding the tip labels from each population, and with the already defined colors
+      tiplabels(pop(data()), adj = c(-4, 0.5), frame = "n", 
+                col = data()$other$tipcolor, cex = 0.8, font = 2)
+      
+      #Adding the nodel labels: Bootstrap values.
+      nodelabels(boottree()$node.label, adj = c(1.2, -0.5), frame = "n", 
+                 cex = 0.9, font = 3)
+      
+      if (input$tree == "upgma"){
+        axisPhylo(3)
+      } else {
+        add.scale.bar(x = 0.89, y = 1.18, length = 0.05, lwd = 2)
       }
     }
   })
+  
   
   #Minimum Spanning Network
   output$MinSpanTree <- renderPlot({
@@ -240,16 +257,16 @@ shinyServer(function(input, output) {
   output$downloadData <- downloadHandler(
     filename = function() { paste(input$tree, '.tre', sep = '') },
     content = function(file) {
-      write.tree(a, file)
+      write.tree(boottree(), file)
     })
   
   output$downloadPdf <- downloadHandler(
     filename = function() { paste(input$tree, '.pdf', sep = '') },
     content = function(file) {
-      pdf(file)
-      plot.phylo(a, cex = 0.5)
-      tiplabels(pop(gen), adj = c(-4, 0.5), frame = "n", col = gen$other$tipcolor, cex = 0.4, font = 2)
-      nodelabels(a$node.label, adj = c(1.2, -0.5), frame = "n", cex = 0.4, font = 3)
+      pdf(file, width=11, height=8.5)
+      plot.phylo(boottree(), cex = 0.5)
+      tiplabels(pop(data()), adj = c(-4, 0.5), frame = "n", col = data()$other$tipcolor, cex = 0.4, font = 2)
+      nodelabels(boottree()$node.label, adj = c(1.2, -0.5), frame = "n", cex = 0.4, font = 3)
       if (input$tree == "upgma"){
         axisPhylo(3)
         }
@@ -279,6 +296,7 @@ output$downloadPdfMst <- downloadHandler(
   filename = function() { paste("min_span_net", '.pdf', sep = '')} ,
   content = function(file) {
     pdf(file,width=11, height=8.5)
+    set.seed(seed())
     plot_poppr_msn(data(), msnet(), vertex.label.color = "firebrick", vertex.label.font = 2, vertex.label.dist = 0.5, inds = data()$other$input_data, quantiles = FALSE)
     dev.off()
   }
