@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- <script src="shared/jquery.js" type="text/javascript"></script>
+  <script src="shared/shiny.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="shared/shiny.css"/>
+  <link rel="stylesheet" type="text/css" href="shared/slider/css/jquery.slider.min.css"/>
+  <script src="shared/slider/js/jquery.slider.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="shared/bootstrap/css/bootstrap.min.css"/>
+  <script src="shared/bootstrap/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" type="text/css" href="shared/bootstrap/css/bootstrap-responsive.min.css"/>
+-->
+	<script type="text/javascript">
+		function validateForm() {
+			var x = document.fasta_file.fasta.value;
+			var atpos = x.indexOf(">");
+			if (atpos < 1) {
+				alert("Not a valid FASTA file");
+				return false;
+			}
+		}
+	</script>
+	<title>Phytophthora ID: MLST-ID (Using Multilocus sequence tags to identify strains)</title>
+</head>
+
+<body>
+	<div class="row-fluid">
+		<div class="span12">
+			<h3>Upload FASTA sequence and select analysis</h3>
+			<p>Copy and paste your sequences in FASTA format into the window below.</p>
+			<p style="color:blue"><b>Warning:</b>Only FASTA formats are accepted</p>.
+			<hr>
+		</div>
+		<div class="span11">
+			<div class="control">
+				<form name="fasta_file" class="text" onSubmit="return validateForm();" method="post">
+					<label style="align:center">FASTA Input</label>
+					<textarea id="fasta" name="fasta" class="shiny-bound-input" cols="25" rows="7" style="width: 100%"></textarea>
+					<br>
+				</form>
+			<button type="submit" class="btn btn-success">Submit genotype</button>
+				</div>
+			</div>
+		</div>
+	</body>
+	</html>
