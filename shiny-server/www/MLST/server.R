@@ -7,6 +7,7 @@ library(gdata)
 
 # Change this path to reflect where your binary of muscle is located.
 muscle_dir <- "/usr/bin/muscle"
+#muscle_dir <- "/Users/tabimaj/Downloads/muscle3.8.31_i86darwin64"
 
 get_last_substring <- function(x, sep = "_"){
   splitx <- strsplit(x, sep)
