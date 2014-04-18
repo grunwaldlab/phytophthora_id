@@ -18,32 +18,19 @@ get_last_substring <- function(x, sep = "_"){
 shinyServer(function(input, output) {
   
   
+
+
+  # COMMENT:
+  #
+  # See www/index.html for my comments on this reactive block.
+  # -Zhian
+
   
   ########### IMPORTANT ############
   # Here's where you add your database file (Comma Separated Object). Make sure 
   # that the database is in the same folder than this file (server.R)
-  data_f <- reactive({
-    if (input$dataset == "dnaa"){
-      df <- read.dna("DnaA.fasta", format="fasta")
-    }else if (input$dataset == "gyrb"){
-      df <- read.dna("GyrB.fasta", format="fasta")
-    } else if (input$dataset == "kdpa"){
-      df <- read.dna("KdpA.fasta", format="fasta")
-    } else if (input$dataset == "liga"){
-      df <- read.dna("LigA.fasta", format="fasta")
-    } else if (input$dataset == "cela"){
-      df <- read.dna("CelA.fasta", format="fasta")
-    } else if (input$dataset == "naga"){
-      df <- read.dna("NagA.fasta", format="fasta")
-    } else if (input$dataset == "toma"){
-      df <- read.dna("TomA.fasta", format="fasta")
-    } else if (input$dataset == "housekeeping"){
-      df <- read.dna("Housekeeping.fasta", format="fasta")
-    } else if (input$dataset == "virulence"){
-      df <- read.dna("Virulence.fasta", format="fasta")
-    } else if (input$dataset == "all"){
-      df <- read.dna("all.fasta", format="fasta")
-    } 
+  data_f <- reactive({ 
+    df <- read.dna(input$dataset, format = "fasta")
     return(df)
     })
 
@@ -66,6 +53,7 @@ shinyServer(function(input, output) {
     }
     })
   
+
   dist <- reactive({
     all.dist <- dist.dna(alin(),input$model)
     return(all.dist)
@@ -110,13 +98,19 @@ shinyServer(function(input, output) {
       return(10L)
     }
     set.seed(seed())
+
+    # COMMENT:
+    # 
+    # It looks like you had the right idea here on this commented line.
+    # Remember, you can write functions that return functions.
+    # - Zhian
   #  boot.dist <- function(al,di){
       if (input$tree == "upgma"){
         tre <- upgma(dist())
-        bp <- boot.phylo(tre,alin(),function(x) upgma(dist()),B=input$boot)
+        bp <- boot.phylo(tre,alin(),function(x) upgma(dist.dna(x,input$model)),B=input$boot)
       } else {
         tre <- nj(dist())
-        bp <- boot.phylo(tre,alin(),function(x) nj(dist()),B=input$boot)
+        bp <- boot.phylo(tre,alin(),function(x) nj(dist.dna(x,input$model)),B=input$boot)
       }
 
       tre$node.labels <- round(((bp / input$boot)*100))
@@ -136,7 +130,24 @@ shinyServer(function(input, output) {
     return(msn.plot)
   })
 
-  
+
+# COMMENT:
+#
+# Since we are drawing plots and saving those plots to files, they should be the
+# same. Instead of copying/pasting the functions, we could write wrappers functions
+# for these plotting functions Where the variables (data(), boottree(), msnet(), 
+# seed(), etc.) are taken in as arguments to the function and options that we
+# want to keep static (cex, border, etc.) are defined.
+# - Zhian
+
+
+  # COMMENT:
+  #
+  # Tiplabels are doubled up and not lining up with the tree. 
+  # Remove the tiplabels command and use the tip.col argument in the
+  # plot.phylo function. See the poppr internal function: poppr.plot.phylo
+  # -Zhian
+
   output$distPlotTree <- renderPlot({
     if (is.null(alin())){
       plot.new() 
