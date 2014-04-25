@@ -157,7 +157,7 @@ shinyServer(function(input, output) {
       input_data <- input_table[[1]]
       df.m <- rbind(df.m, input_table, deparse.level = 0)
       df.m <- as.data.frame(df.m)
-      gen <- df2genind(df.m[, -c(1, 2)], ploid = 2, sep = "/", pop = df.m[, 2], ind.names = df.m[, 1])
+      gen <- df2genind(df.m[, -c(1, 2)], ploid = 3, sep = "/", pop = df.m[, 2], ind.names = df.m[, 1])
       #Adding colors to the tip values according to the clonal lineage
       gen$other$tipcolor <- pop(gen)
       gen$other$input_data <- input_data
