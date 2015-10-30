@@ -16,7 +16,7 @@
 	}
 	#updates{
 	width: 900px;
-	margin: -250px 60 0 -450px; 
+	margin: -250px 60 0 -450px;
 		}
 	     /* Sticky footer styles
       -------------------------------------------------- */
@@ -54,7 +54,7 @@
           padding-right: 20px;
         }
       }
-      
+
       #wrap > .container {
         padding-top: 60px;
       }
@@ -65,10 +65,10 @@
       code {
         font-size: 80%;
       }
-	
+
 	</style>
-	
-	
+
+
 	<link href="Bootstrap_files/bootstrap-responsive.css" rel="stylesheet">
 	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -111,10 +111,10 @@
 				<li class="active"><a href="#its" data-toggle="tab">ITS blast</a></li>
 				<li><a href="#cox" data-toggle="tab"><em>cox</em> spacer blast</a></li>
 				<li class="dropdown" id="help_menu">
-					<a class="dropdown-toggle" data-toggle="dropdown">Help<b class="caret"></b></a>  
-					<ul class="dropdown-menu">  
-						<li><a href="#updates" data-toggle="modal">Site Help</a></li>   
-						<li><a href="#" onClick="MyWindow=window.open('files/Phytophthora-ID sequencing protocols.pdf','MyWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=300'); return false;">Protocols</a>  
+					<a class="dropdown-toggle" data-toggle="dropdown">Help<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#updates" data-toggle="modal">Site Help</a></li>
+						<li><a href="#" onClick="MyWindow=window.open('files/Phytophthora-ID sequencing protocols.pdf','MyWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=300'); return false;">Protocols</a>
 					</ul>
 				<li>
 			</ul>
@@ -131,19 +131,20 @@
 									<input type="text" class="input-xlarge span6" id="job_name" name="job_name" data-content="Enter a name for the job." data-original-title="Job Name" placeholder="Enter job name here">
 								</div>
 							</div>
-							<!-- Sequence Form -->			
-							<div class="control-group">  
-								<label class="control-label" for="textarea" >Input FASTA format sequence here:</label>  
-								<div class="controls">  
+							<!-- Sequence Form -->
+							<div class="control-group">
+								<label class="control-label" for="textarea" >Input FASTA format sequence here:</label>
+								<div class="controls">
 									<textarea rows="11" class="input-xlarge span6" id="fasta_file" name="fasta_file" placeholder=" >Query ITS
-										GTGAGTACCTTGGGCTGCCTTTATATATAATCTAGAAACAAGGCCCCTGTAAGGCCCTTTCCTTCCTCCTCCCCAAAGCTATAAAAGATATTTGGGTAGAATTCACAGCTTCAGGCTATGGAACTCCTGGATTCCCTCCTTCCACTTCCACCCTACTGCAGAGATGCTGAGAAAGTCTGGGAGGGTTTTTCTAAAAGCTAAGCTGGGCCAAATAGCCAGGTTCAAGTCAGTACATGAAGAGTTGTGGTTCTAAATTCCTTCCCTACTCCAGCTCCAAATTTCATTTTAGTTCCACTTTTGGGCCTAACCAGCTAAAGGTCCCCACCCAGCTCCTGCCTATCTAGTCACTGCATATGGCAGACCTTGAAAGTCCTATCTCAAAGCAGCAGAATTATCAGTTATCTGTCTTGTCATGGAAAAGAGAGATAAGCAGAGGCCTGAGAAAGGAGTCTGGAGCTCCAGCTTCTGGTACACATCCTTGTGTTACCTGGATATGATCCTATTCCTCTAGAG"></textarea>  
-									</div>  
-								</div>  
+										GTGAGTACCTTGGGCTGCCTTTATATATAATCTAGAAACAAGGCCCCTGTAAGGCCCTTTCCTTCCTCCTCCCCAAAGCTATAAAAGATATTTGGGTAGAATTCACAGCTTCAGGCTATGGAACTCCTGGATTCCCTCCTTCCACTTCCACCCTACTGCAGAGATGCTGAGAAAGTCTGGGAGGGTTTTTCTAAAAGCTAAGCTGGGCCAAATAGCCAGGTTCAAGTCAGTACATGAAGAGTTGTGGTTCTAAATTCCTTCCCTACTCCAGCTCCAAATTTCATTTTAGTTCCACTTTTGGGCCTAACCAGCTAAAGGTCCCCACCCAGCTCCTGCCTATCTAGTCACTGCATATGGCAGACCTTGAAAGTCCTATCTCAAAGCAGCAGAATTATCAGTTATCTGTCTTGTCATGGAAAAGAGAGATAAGCAGAGGCCTGAGAAAGGAGTCTGGAGCTCCAGCTTCTGGTACACATCCTTGTGTTACCTGGATATGATCCTATTCCTCTAGAG"></textarea>
+									</div>
+								</div>
 								<!-- ITS Submit button-->
 								<div class="control-group">
 									<label class="control-label"></label>
 									<div class="controls">
 										<button id="button" type="submit" class="btn btn-success" >Submit and run</button>
+										<a href="files/Phytophthora-ID-ITS-version-1.17.fasta" class="btn btn-info"><span class="icon-download"></span> Download database</a>
 									</div>
 								</div>
 							</fieldset>
@@ -162,18 +163,20 @@
 									</div>
 								</div>
 								<!-- Sequence Form -->
-								<div class="control-group">  
-									<label class="control-label" for="textarea" >Input FASTA file:</label>  
-									<div class="controls">  
+								<div class="control-group">
+									<label class="control-label" for="textarea" >Input FASTA file:</label>
+									<div class="controls">
 										<textarea rows="11" class="input-xlarge span6" id="textarea" name="fasta_file" placeholder=" >Query COX
-											CTTTGGATCCCTGCTAGGCATCTGCCTAATGACACAAATCCTAACCGGCCTACTACTGGCCATACACTACACCGCGGACACAACCCTAGCCTTCTCATCCGTCGCCCACACATGTCGAAACGTACAATACGGCTGACTAATCCGCAACCTACATGCAAACGGAGCTTCATTCTTCTTCATCTGCATCTACCTCCACATTGGACGAGGACTTTACTATGGTTCGTACCTATACAAAGAAACATGAAACACAGGCGTCATCCTCCTACTCACCCTCATAGCAACTGCCTTCGTGGGCTACGTCCTACCATGAGGACAAATATCATTCTGAGGTGCCACAGTGATCACCAATTTATTCTCAGCCATCCCCTATATCGGCCAAACCCTTGTAGAATGGGCATGAGGAGGATTCTCAGTAGACAACCCCACCCTAACTCGATTCTTTGCCTTACACTTTCTCCTCCCCTTTGCAATTGCAGGCCTCACCCTAATCCATCTTACCTTTCTACACGAATC"></textarea>  
-										</div>  
-									</div>  
+											CTTTGGATCCCTGCTAGGCATCTGCCTAATGACACAAATCCTAACCGGCCTACTACTGGCCATACACTACACCGCGGACACAACCCTAGCCTTCTCATCCGTCGCCCACACATGTCGAAACGTACAATACGGCTGACTAATCCGCAACCTACATGCAAACGGAGCTTCATTCTTCTTCATCTGCATCTACCTCCACATTGGACGAGGACTTTACTATGGTTCGTACCTATACAAAGAAACATGAAACACAGGCGTCATCCTCCTACTCACCCTCATAGCAACTGCCTTCGTGGGCTACGTCCTACCATGAGGACAAATATCATTCTGAGGTGCCACAGTGATCACCAATTTATTCTCAGCCATCCCCTATATCGGCCAAACCCTTGTAGAATGGGCATGAGGAGGATTCTCAGTAGACAACCCCACCCTAACTCGATTCTTTGCCTTACACTTTCTCCTCCCCTTTGCAATTGCAGGCCTCACCCTAATCCATCTTACCTTTCTACACGAATC"></textarea>
+										</div>
+									</div>
 									<!-- Submit Button -->
 									<div class="control-group">
 										<label class="control-label"></label>
 										<div class="controls">
-											<button type="submit" class="btn btn-success" >Submit and run</button>																								</div>
+											<button type="submit" class="btn btn-success" >Submit and run</button>
+										<a href="files/Phytopthora-ID-COX-version-1.3.fasta" class="btn btn-info"><span class="icon-download"></span> Download database</a>
+										</div>
 										</div>
 									</fieldset>
 								</form>
@@ -193,7 +196,7 @@
 						<li><a href="#cox_updates" data-toggle="pill"><em>cox</em> spacer updates</a></li>
 					</ul>
 				</div>
-				<div class="modal-body"> 
+				<div class="modal-body">
 					<div class="pill-content">
 						<div class="pill-pane" id="its_updates">
 							<h3>ITS updates</h3>
@@ -313,13 +316,13 @@
 								<a href="#" class="btn" data-dismiss="modal">Close</a>
 							</div>
 				</div>			</div>
-			<div id="push"></div>		
+			<div id="push"></div>
 		</div>
 
 	</div>
-	
-	
-	
+
+
+
 <div id="footer">
 	<div class="container">
 		<br>
