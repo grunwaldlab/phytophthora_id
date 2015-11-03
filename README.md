@@ -1,7 +1,7 @@
 **Phytophthora**-ID
 ===============
 
-Repository for [Phytophthora ID](http://phytophthora-id.org). 
+Repository for [Phytophthora ID](http://phytophthora-id.org), a [Microbe-ID](http://microbe-id.org) cutomized webpage for *Phytophthora* species. **Phytophthora-ID**is a web site designed for the identification of multiple *Phytophthora* species using common sequence barcodes (ITS and *cox* spacer) using BLAST searches against curated databases. **Phytophthora-ID** has an additional module to identify clonal lineages of *P. infestans* and *P. ramorum* using SSR markers.
 
 Contents
 -----------------
