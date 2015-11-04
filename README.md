@@ -9,11 +9,8 @@ Contents
 -----------------
 This repository contains the Bootstrap Twitter html pages of the Phytophthora ID](http://phytophthora-id.org) webpage.
 
-Phytopthora-ID contains two main applications: Sequence-ID and Genotype-ID.
+**Phytopthora-ID** contains two main applications: **Sequence-ID** and **Genotype-ID**.
 
-Sequence-ID allows identification of species by blasting a query sequence against a custom reference sequence database using BLAST. Sequence-ID has databases for the Internal Transcribed Spaces (ITS) region and the *cox* spacer.
+**Sequence-ID** allows identification of species by blasting a query sequence against a custom reference sequence database using BLAST. Sequence-ID has databases for the Internal Transcribed Spaces (ITS) region and the *cox* spacer.
 
-Genotype-ID allows placement of an unknown genotype in either a minimum spanning network or dendrogram with bootstrap support comparing the queue against an user-created reference database using R and a suite of R packages designed for molecular markers. This version of Genotype-ID includes a modification of the [SSR-ID]() module optimized for clonal lineages of two *Phytophthora* species, currently, *P. ramorum* and *P.infestans*
-
-
-
+**Genotype-ID** allows placement of an unknown genotype in either a minimum spanning network or dendrogram with bootstrap support comparing the queue against an user-created reference database using R and a suite of R packages designed for molecular markers. This version of Genotype-ID includes a modification of the [SSR-ID]() module optimized for clonal lineages of two *Phytophthora* species, currently, *P. ramorum* and *P.infestans*
