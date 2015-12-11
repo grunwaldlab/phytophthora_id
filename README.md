@@ -7,7 +7,7 @@ We recommend the users/forkers to read the extensive documentation of the [Micro
 
 Contents
 -----------------
-This repository contains the Bootstrap Twitter html pages of the Phytophthora ID](http://phytophthora-id.org) webpage.
+This repository contains the Bootstrap Twitter html pages of the [Phytophthora ID](http://phytophthora-id.org) webpage.
 
 **Phytopthora-ID** contains two main applications: **Sequence-ID** and **Genotype-ID**.
 
