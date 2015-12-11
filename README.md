@@ -1,7 +1,7 @@
 **Phytophthora**-ID
 ===============
 
-Repository for [Phytophthora ID](http://phytophthora-id.org), a [Microbe-ID](http://microbe-id.org) cutomized webpage for *Phytophthora* species. **Phytophthora-ID**is a web site designed for the identification of multiple *Phytophthora* species using common sequence barcodes (ITS and *cox* spacer) using BLAST searches against curated databases. **Phytophthora-ID** has an additional module built in R-Shiny to identify clonal lineages of *P. infestans* and *P. ramorum* using SSR markers.
+Repository for [Phytophthora ID](http://phytophthora-id.org), a [Microbe-ID](http://microbe-id.org) cutomized webpage for *Phytophthora* species. **Phytophthora-ID** is a web site designed for the identification of multiple *Phytophthora* species using common sequence barcodes (ITS and *cox* spacer) using BLAST searches against curated databases. **Phytophthora-ID** has an additional module built in R-Shiny to identify clonal lineages of *P. infestans* and *P. ramorum* using SSR markers.
 
 We recommend the users/forkers to read the extensive documentation of the [Microbe-ID Github page](https://github.com/grunwaldlab/Microbe-ID) to udnerstand the construction and deployement of a custom Microbe-ID site.
 
